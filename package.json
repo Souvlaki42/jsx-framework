@@ -1,0 +1,19 @@
+{
+	"name": "jsx-framework",
+	"module": "index.ts",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"scripts": {
+		"start": "bun run src/server.ts",
+		"dev": "bun run --watch src/server.ts"
+	},
+	"type": "module",
+	"dependencies": {
+		"preact-render-to-string": "^6.4.2",
+		"signal-polyfill": "^0.1.1"
+	}
+}
