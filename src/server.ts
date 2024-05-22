@@ -1,11 +1,11 @@
 import { serve } from "./core/serve.ts";
 
 const development = Bun.env.NODE_ENV === "development";
-const port = 3000;
+const port = Bun.env.PORT ?? 3000;
 
 export const router = new Bun.FileSystemRouter({
 	style: "nextjs",
-	dir: "./src/pages",
+	dir: Bun.env.PAGES_DIR ?? "./src/pages",
 });
 
 Bun.serve({

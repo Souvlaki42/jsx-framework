@@ -10,11 +10,8 @@ export const serve = (
 		const path = new URL(req.url).pathname;
 		const route = router.match(req.url);
 
-		const publicFile = Bun.file(`./public${path}`);
+		const publicFile = Bun.file(`${Bun.env.PUBLIC_DIR ?? "./public"}${path}`);
 		if (await publicFile.exists()) return new Response(publicFile);
-
-		const comFile = Bun.file(`./src/pages${path}`);
-		if (await comFile.exists()) return new Response(comFile);
 
 		if (!route) return new Response("404!");
 
