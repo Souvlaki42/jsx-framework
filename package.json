@@ -13,6 +13,7 @@
   },
   "type": "module",
   "dependencies": {
+    "preact": "^10.22.0",
     "signal-polyfill": "^0.1.1"
   }
 }
