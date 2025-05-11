@@ -11,7 +11,7 @@ export default defineConfig({
 		jsx: "transform",
 		jsxDev: false,
 		jsxImportSource: "~",
-		jsxInject: `import { jsx } from "~/jsx-runtime"`,
-		jsxFactory: "jsx.component",
+		jsxInject: `import { createElement } from "~/jsx-runtime";`,
+		jsxFactory: "createElement",
 	},
 });

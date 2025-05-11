@@ -1,9 +1,9 @@
-# Didact
+# JSX Framework
 
 > [!IMPORTANT]  
 > This is just a toy framework, it's not meant to be used in production
 
-A small toy framework I write as I learn how libraries like React work
+A small toy framework like React but way simpler, that I've written as I was learning how libraries like React work
 
 ## Credits
 
