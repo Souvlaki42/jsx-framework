@@ -5,5 +5,5 @@ const app = document.querySelector<HTMLDivElement>("#app");
 
 if (!app) throw new Error("Could not find #app element");
 
-render(<App name="World" />, app);
+render(<App />, app);
 

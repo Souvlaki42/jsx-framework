@@ -15,7 +15,7 @@ export default function App() {
 						<button
 							onClick={() => setItems(items.filter((_, i) => i !== index))}
 						>
-							Remove
+							X
 						</button>
 					</li>
 				))}
