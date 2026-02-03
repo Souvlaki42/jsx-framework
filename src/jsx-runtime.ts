@@ -107,7 +107,7 @@ function createDom(fiber: Fiber) {
   Object.keys(fiber.props)
     .filter(isAttribute)
     .forEach((name) => {
-      dom.setAttribute(name, fiber.props[name] ?? "");
+      (dom as any)[name] = fiber.props[name] ?? "";
     });
   return dom;
 }
@@ -387,14 +387,14 @@ function updateDom(dom: Node, prevProps: Props = {}, nextProps: Props) {
     .filter(isAttribute)
     .filter(isGone(prevProps, nextProps))
     .forEach((name) => {
-      dom.removeAttribute(name);
+      (dom as any)[name] = "";
     });
 
   Object.keys(nextProps)
     .filter(isAttribute)
     .filter(isNew(prevProps, nextProps))
     .forEach((name) => {
-      dom.setAttribute(name, nextProps[name]);
+      (dom as any)[name] = nextProps[name];
     });
 
   Object.keys(nextProps)
