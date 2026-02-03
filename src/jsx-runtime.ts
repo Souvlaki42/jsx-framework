@@ -80,16 +80,22 @@ export function createElement(
   };
 }
 
-function createDom(fiber: any) {
+function createDom(fiber: Fiber) {
   if (!fiber.props) {
     console.error(fiber);
     throw new Error(`createDom called on fiber with no props: ${fiber.type}`);
+  }
+
+  if (typeof fiber.type !== "string") {
+    throw new Error("createDom can only create DOM for string types");
   }
 
   const dom =
     fiber.type === "TEXT_ELEMENT"
       ? document.createTextNode(fiber.props.nodeValue)
       : document.createElement(fiber.type);
+
+  if (!(dom instanceof HTMLElement)) return dom;
 
   Object.keys(fiber.props)
     .filter(isEvent)
@@ -101,10 +107,11 @@ function createDom(fiber: any) {
   Object.keys(fiber.props)
     .filter(isAttribute)
     .forEach((name) => {
-      dom[name] = fiber.props[name] ?? "";
+      dom.setAttribute(name, fiber.props[name] ?? "");
     });
   return dom;
 }
+
 let nextUnitOfWork: Fiber | null = null;
 let wipRoot: Fiber | null = null;
 let currentRoot: Fiber | null = null;
@@ -362,7 +369,9 @@ function reconcileChildren(wipFiber: Fiber, elements: Children) {
 
 const isNew = (prev: Props, next: Props) => (key: string) =>
   prev[key] !== next[key];
+
 const isGone = (_prev: Props, next: Props) => (key: string) => !(key in next);
+
 function updateDom(dom: any, prevProps: any, nextProps: any) {
   Object.keys(prevProps)
     .filter(isEvent)
