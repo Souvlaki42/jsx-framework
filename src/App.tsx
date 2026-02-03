@@ -6,13 +6,19 @@ export default function App() {
 
 	return (
 		<div>
-			<input value={value} onChange={(e: any) => setValue(e.target.value)} />
-			<button onClick={() => setItems([...items, value])}>Add</button>
+			<input
+				value={value}
+				onChange={(e: Event) => setValue((e.target as HTMLInputElement).value)}
+			/>
+			<button type="button" onClick={() => setItems([...items, value])}>
+				Add
+			</button>
 			<ul>
 				{items.map((item, index) => (
 					<li key={index}>
 						{item}
 						<button
+							type="button"
 							onClick={() => setItems(items.filter((_, i) => i !== index))}
 						>
 							X
