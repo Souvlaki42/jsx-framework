@@ -372,7 +372,9 @@ const isNew = (prev: Props, next: Props) => (key: string) =>
 
 const isGone = (_prev: Props, next: Props) => (key: string) => !(key in next);
 
-function updateDom(dom: any, prevProps: any, nextProps: any) {
+function updateDom(dom: Node, prevProps: Props = {}, nextProps: Props) {
+  if (!(dom instanceof HTMLElement)) return;
+
   Object.keys(prevProps)
     .filter(isEvent)
     .filter((key) => !(key in nextProps) || isNew(prevProps, nextProps)(key))
@@ -385,14 +387,14 @@ function updateDom(dom: any, prevProps: any, nextProps: any) {
     .filter(isAttribute)
     .filter(isGone(prevProps, nextProps))
     .forEach((name) => {
-      dom[name] = "";
+      dom.removeAttribute(name);
     });
 
   Object.keys(nextProps)
     .filter(isAttribute)
     .filter(isNew(prevProps, nextProps))
     .forEach((name) => {
-      dom[name] = nextProps[name];
+      dom.setAttribute(name, nextProps[name]);
     });
 
   Object.keys(nextProps)
