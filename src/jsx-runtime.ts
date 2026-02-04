@@ -11,14 +11,19 @@ type Child = VNode | string | number | boolean | null | undefined;
 
 type Children = Child | Child[];
 
-type Component<P = {}> = (props: P & { children?: Children }) => Children;
+type Component<P = unknown> = (props: P & { children?: Children }) => Children;
 
-type ComponentType<P = {}> = string | Component<P>;
+type ComponentType<P = unknown> = string | Component<P>;
 
-type Props = {
-  [key: string]: any;
-  children?: Children;
-};
+type Props<T extends keyof HTMLElementTagNameMap = any> =
+  T extends keyof HTMLElementTagNameMap
+    ? Partial<HTMLElementTagNameMap[T]> & {
+        children?: Children;
+      }
+    : {
+        children?: Children;
+        [key: string]: any;
+      };
 
 type VNode = {
   type: ComponentType;
@@ -64,7 +69,7 @@ export function Fragment(props: { children: Children }): Children {
 
 export function createElement(
   element: ComponentType,
-  props?: Record<string, any> | null,
+  props: Props,
   ...children: Children[]
 ) {
   return {
